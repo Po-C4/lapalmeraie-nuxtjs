@@ -1,8 +1,16 @@
 <template>
   <div>
+    <Navbar />
     <Nuxt />
   </div>
 </template>
+
+<style lang="scss">
+$primary: #fa6c2c;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+</style>
 
 <style>
 html {
