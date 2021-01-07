@@ -14,11 +14,9 @@
         <p v-else class="lead mt-3 w-100">
           {{ error.message }}
         </p>
-        <nuxt-link to="/">
-          <b-button variant="outline-light" @click="delayedBlur">
-            Retourner à l'accueil
-          </b-button>
-        </nuxt-link>
+        <b-button variant="outline-light" to="/">
+          Retourner à l'accueil
+        </b-button>
       </b-col>
     </b-row>
   </b-container>
