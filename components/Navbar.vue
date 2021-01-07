@@ -37,7 +37,7 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      scrolled: true, // TODO change this to false once some pages have been created
+      scrolled: false,
     };
   },
   mounted() {

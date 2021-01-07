@@ -1,128 +1,64 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        lapalmeraie
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div class="bg-dark text-white">
+    <AppHeader />
+
+    <b-container>
+      <b-row class="align-items-center mt-5">
+        <b-col class="text-center">
+          <h2>Infos sur le serveur</h2>
+        </b-col>
+      </b-row>
+
+      <b-row class="align-items-center mt-5">
+        <b-col lg="7">
+          <b-img fluid src="@/assets/img-subtext01.png" alt="Le portail vers le Nether et le monde Ressources" />
+        </b-col>
+        <b-col lg="5" class="mt-5 mt-lg-0">
+          <h3>Le serveur en quelques mots</h3>
+          <hr class="divider d-inline-block mb-4 mt-0">
+          <p>La Palmeraie est un serveur Minecraft sur whitelist 1.16.3 majoritairement axé sur le vanilla. Venez rejoindre une communauté familiale et sympathique, avec des ajouts de gameplay et de qualité de vie ! Rejoignez une ville ou crééz la votre ! Devenez riche en vendant vos ressources à l'aide de commerçants ! Notre carte de 50000 blocs carré vous attend !</p>
+          <b-button variant="primary" to="/nous-rejoindre">
+            Nous rejoindre !
+          </b-button>
+        </b-col>
+      </b-row>
+
+      <b-row class="align-items-center mt-5">
+        <b-col lg="5" order="2" order-lg="1" class="mt-5 mt-lg-0">
+          <h3>Nos ajouts</h3>
+          <hr class="divider d-inline-block mb-4 mt-0">
+          <p>La Palmeraie ajoute des nouveautés par rapport au jeu de base. Par exemple, vous pouvez obtenir des têtes de joueurs customisées, des PNJ personnalisables, une économie physique propre au serveur. En plus, notre serveur possède un pack de ressources pour texturer tous les objets modifiés !</p>
+          <b-button variant="primary" to="/nous-rejoindre">
+            Candidater
+          </b-button>
+        </b-col>
+        <b-col lg="7" order="1" order-lg="2">
+          <b-img fluid src="@/assets/img-subtext02.png" alt="Les champs du spawn, et la cave" />
+        </b-col>
+      </b-row>
+
+      <b-row class="align-items-center mt-5 mb-4">
+        <b-col lg="7">
+          <b-img fluid src="@/assets/img-subtext03.png" alt="La ville principale du spawn" />
+        </b-col>
+        <b-col lg="5" class="mt-5 mt-lg-0">
+          <h3>Notre Histoire</h3>
+          <hr class="divider d-inline-block mb-4 mt-0">
+          <p>La Palmeraie a été fondée par des amis qui ne pouvaient plus supporter le management et les règles absurdes d'autres serveurs semi-RP freebuild. Ils ont alors décidé de créer un serveur avec des règles logiques, et sans prise de tête.</p>
+          <b-button variant="primary" to="/nous-rejoindre">
+            Commencer l'aventure !
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <AppEndCta />
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped>
-html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 3rem;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.divider {
+  width: 10vw;
+  border: 2px solid var(--primary);
 }
 </style>
