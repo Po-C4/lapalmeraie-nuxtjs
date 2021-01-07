@@ -8,9 +8,17 @@
         <p v-if="error.statusCode === 403" class="lead mt-3 w-100">
           L'accès à cette page n'est pas autorisé !
         </p>
+        <p v-if="error.statusCode === 404" class="lead mt-3 w-100">
+          La page demandée est introuvable
+        </p>
         <p v-else class="lead mt-3 w-100">
           {{ error.message }}
         </p>
+        <nuxt-link to="/">
+          <b-button variant="outline-light" @click="delayedBlur">
+            Retourner à l'accueil
+          </b-button>
+        </nuxt-link>
       </b-col>
     </b-row>
   </b-container>
