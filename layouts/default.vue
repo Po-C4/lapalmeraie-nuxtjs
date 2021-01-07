@@ -2,6 +2,7 @@
   <div>
     <Navbar />
     <Nuxt />
+    <AppFooter />
   </div>
 </template>
 
