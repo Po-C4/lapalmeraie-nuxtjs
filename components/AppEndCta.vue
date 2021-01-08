@@ -1,7 +1,9 @@
 <template>
   <b-container fluid class="bg px-0 bg-dark text-white" :style="cssVars">
     <b-row class="bg-overlay w-100 mx-0">
-      <b-col class="text-center d-flex flex-wrap justify-content-center align-content-center">
+      <b-col
+        class="text-center d-flex flex-wrap justify-content-center align-content-center"
+      >
         <h2 class="title display-3 w-100">
           {{ text }}
         </h2>

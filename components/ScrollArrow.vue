@@ -16,7 +16,7 @@ export default {
   height: 60px;
   width: 60px;
   line-height: 60px;
-  color: #FFF;
+  color: #fff;
   font-size: 70px;
   z-index: 100;
 
@@ -25,14 +25,14 @@ export default {
 
 @keyframes move-down {
   0% {
-    transform:translate(0,-20px);
+    transform: translate(0, -20px);
     opacity: 0;
   }
   50% {
     opacity: 1;
   }
   100% {
-    transform:translate(0,20px);
+    transform: translate(0, 20px);
     opacity: 0;
   }
 }

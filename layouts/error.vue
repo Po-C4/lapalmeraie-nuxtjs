@@ -2,9 +2,7 @@
   <b-container fluid class="bg px-0 text-white">
     <b-row class="bg-overlay">
       <b-col>
-        <h1 class="display-3 w-100">
-          Erreur {{ error.statusCode }}
-        </h1>
+        <h1 class="display-3 w-100">Erreur {{ error.statusCode }}</h1>
         <p v-if="error.statusCode === 403" class="lead mt-3 w-100">
           L'accès à cette page n'est pas autorisé !
         </p>

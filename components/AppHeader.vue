@@ -29,7 +29,8 @@ export default {
     },
     subtitle: {
       type: String,
-      default: 'Semi-RP, ambiance conviviale, staff réactif, économie naissante...',
+      default:
+        'Semi-RP, ambiance conviviale, staff réactif, économie naissante...',
     },
     subtitle2: {
       type: String,

@@ -1,8 +1,12 @@
 <template>
-  <b-navbar toggleable="lg" fixed="top" type="dark" :variant="scrolled ? 'primary' : 'muted'" class="mx-auto">
-    <b-navbar-brand to="/">
-      La Palmeraie
-    </b-navbar-brand>
+  <b-navbar
+    toggleable="lg"
+    fixed="top"
+    type="dark"
+    :variant="scrolled ? 'primary' : 'muted'"
+    class="mx-auto"
+  >
+    <b-navbar-brand to="/"> La Palmeraie </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse" />
 
@@ -11,19 +15,35 @@
         <b-nav-item to="/" :active="$route.path === '/'" class="my-auto">
           Accueil
         </b-nav-item>
-        <b-nav-item to="/tutoriel" :active="$route.path === '/tutoriel'" class="my-auto">
+        <b-nav-item
+          to="/tutoriel"
+          :active="$route.path === '/tutoriel'"
+          class="my-auto"
+        >
           Tutoriel
         </b-nav-item>
-        <b-nav-item to="/votes" :active="$route.path === '/votes'" class="my-auto">
+        <b-nav-item
+          to="/votes"
+          :active="$route.path === '/votes'"
+          class="my-auto"
+        >
           Votez !
         </b-nav-item>
         <b-nav-item to="/boutique" class="nav-first-btn">
-          <b-button variant="outline-light" :class="routeMatch('/boutique')" @click="delayedBlur">
+          <b-button
+            variant="outline-light"
+            :class="routeMatch('/boutique')"
+            @click="delayedBlur"
+          >
             La Boutique
           </b-button>
         </b-nav-item>
         <b-nav-item to="/nous-rejoindre" class="nav-btn">
-          <b-button variant="outline-light" :class="routeMatch('/nous-rejoindre')" @click="delayedBlur">
+          <b-button
+            variant="outline-light"
+            :class="routeMatch('/nous-rejoindre')"
+            @click="delayedBlur"
+          >
             Nous Rejoindre !
           </b-button>
         </b-nav-item>
@@ -73,7 +93,7 @@ export default {
 }
 .navbar-collapse.show .nav-btn,
 .navbar-collapse.collapsing .nav-btn {
-    margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 .nav-item {
   height: min-content;

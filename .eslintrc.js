@@ -10,14 +10,21 @@ module.exports = {
   extends: [
     '@nuxtjs',
     'plugin:nuxt/recommended',
+    'prettier/vue',
+    'plugin:prettier/recommended',
   ],
-  plugins: [
-  ],
+  plugins: [],
   // add your custom rules here
   rules: {
     semi: ['error', 'always', { omitLastInOneLineBlock: true }],
     'comma-dangle': ['error', 'always-multiline'],
     curly: ['error', 'multi-line'],
-    'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
+    'space-before-function-paren': [
+      'error',
+      { anonymous: 'always', named: 'never', asyncArrow: 'always' },
+    ],
+    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
 };
