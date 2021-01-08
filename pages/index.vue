@@ -1,6 +1,6 @@
 <template>
   <div class="bg-dark text-white">
-    <AppHeader />
+    <AppHeader fullscreen />
 
     <b-container>
       <b-row class="align-items-center mt-5">

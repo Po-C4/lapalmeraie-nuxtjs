@@ -1,15 +1,18 @@
 <template>
   <header class="bg bg-dark text-white" :style="cssVars">
     <b-container fluid class="bg-overlay">
-      <b-row class="align-items-center" :class="{ fullscreen: isFullscreen }">
+      <b-row class="align-items-center" :class="{ fullscreen: fullscreen }">
         <b-col class="text-center">
           <h1 class="title font-weight-light display-3">
             {{ title }}
           </h1>
-          <p class="lead">
+          <p class="lead" :class="subtitle !== null ? 'mb-0' : ''">
             {{ subtitle }}
           </p>
-          <ScrollArrow v-if="isFullscreen" class="cta-arrow" />
+          <p v-if="subtitle !== null" class="lead">
+            {{ subtitle2 }}
+          </p>
+          <ScrollArrow v-if="fullscreen" class="cta-arrow" />
         </b-col>
       </b-row>
     </b-container>
@@ -28,13 +31,17 @@ export default {
       type: String,
       default: 'Semi-RP, ambiance conviviale, staff réactif, économie naissante...',
     },
+    subtitle2: {
+      type: String,
+      default: null,
+    },
     background: {
       type: String,
       default: 'bg-header-index',
     },
-    isFullscreen: {
+    fullscreen: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   computed: {

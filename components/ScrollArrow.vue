@@ -1,7 +1,5 @@
 <template>
-  <div class="arrow">
-    <b-icon-caret-down />
-  </div>
+  <span class="arrow" />
 </template>
 
 <script>

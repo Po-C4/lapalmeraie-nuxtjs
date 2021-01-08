@@ -75,6 +75,7 @@
     </footer>
 
     <div class="text-center py-3">
+      <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
       <p>© 2020 <nuxt-link to="/" class="inline-link">lapalmeraiemc.fr</nuxt-link> Tous droits réservés.</p>
     </div>
   </div>
