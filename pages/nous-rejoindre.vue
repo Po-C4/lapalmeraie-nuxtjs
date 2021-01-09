@@ -132,7 +132,7 @@
             >
               {{ resumeLength }} / {{ resumeMaxLength }}
             </b-form-text>
-            <b-form-text>
+            <b-form-text class="description">
               Qui êtes-vous ? Que comptez-vous faire sur le serveur ? Quels sont
               vos objectifs, vos ambitions ? Qu'est-ce qui vous attire sur le
               serveur ?
@@ -352,5 +352,9 @@ textarea.form-control {
 
 .length-tooltip.text-danger {
   font-weight: bold;
+}
+
+.length-tooltip + .description {
+  padding-right: 70px;
 }
 </style>
