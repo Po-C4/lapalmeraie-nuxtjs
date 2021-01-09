@@ -259,7 +259,7 @@ export default {
       return !this.missingCaptcha;
     },
     updateInputsStates() {
-      return {
+      return this.goToFirstError({
         minecraft: this.testMinecraft(),
         discord: this.testDiscord(),
         age: this.testAge(),
@@ -267,19 +267,45 @@ export default {
         discovery: this.testDiscovery(),
         resume: this.testResume(),
         captcha: this.testCaptcha(),
-      };
+      });
     },
-    onSubmit() {
-      for (const [key, value] of Object.entries(this.updateInputsStates())) {
+    goToFirstError(states) {
+      for (const [key, value] of Object.entries(states)) {
         if (!value) {
           this.$refs[key].$el.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
           });
-          return;
+          return false;
         }
+        }
+      return true;
+    },
+    async onSubmit() {
+      if (!this.updateInputsStates()) return;
+
+      const res = await this.$axios.$post('/api/candidater', {
+        token: this.captchaToken,
+        minecraft: this.minecraft,
+        discord: this.discord,
+        age: this.age,
+        godfathers: this.godfathers,
+        discovery: this.discovery,
+        resume: this.resume,
+      });
+
+      if (!res.inputsValidity) {
+        this.minecraftState = res.inputs.minecraft;
+        this.discordState = res.inputs.discord;
+        this.ageState = res.inputs.age;
+        this.godfathersState = res.inputs.godfathers;
+        this.discoveryState = res.inputs.discovery;
+        this.resumeState = res.inputs.resume;
+
+        this.goToFirstError(res.inputs);
       }
-      console.log('valid'); // TODO submit the form
+
+      this.$refs.captcha.reset();
     },
     onVerify(token) {
       this.captchaToken = token;

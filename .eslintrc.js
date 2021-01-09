@@ -17,7 +17,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     semi: ['error', 'always', { omitLastInOneLineBlock: true }],
-    'comma-dangle': ['error', 'always-multiline'],
     curly: ['error', 'multi-line'],
     'space-before-function-paren': [
       'error',

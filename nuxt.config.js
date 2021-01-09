@@ -14,6 +14,11 @@ export default {
   publicRuntimeConfig: {
     siteKey: process.env.SITE_KEY,
   },
+  privateRuntimeConfig: {
+    secretSiteKey: process.env.SECRET_SITE_KEY,
+  },
+
+  serverMiddleware: [{ path: '/api', handler: '~/server/rest.js' }],
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
