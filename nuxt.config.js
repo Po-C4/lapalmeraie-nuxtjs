@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export default {
   // Server configurations such as the host to listen or the port to use
   // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-server
@@ -6,6 +8,11 @@ export default {
     port: 8080,
     // Uncomment the next line to use a socket (useful with Nginx or other reverse proxies)
     // socket: '/tmp/nuxt.socket',
+  },
+
+  // Environment variables
+  publicRuntimeConfig: {
+    siteKey: process.env.SITE_KEY,
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
