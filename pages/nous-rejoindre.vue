@@ -230,6 +230,30 @@
     >
       {{ errorModalMessage }}
     </b-modal>
+
+    <b-modal
+      v-model="discordModalState"
+      title="Une erreur s'est produite"
+      header-bg-variant="secondary"
+      header-text-variant="light"
+      centered
+    >
+      <template #default>
+        Vous devez être présent sur notre serveur discord pour pouvoir envoyer
+        votre candidature. Une invitation pour rejoindre notre serveur discord
+        est disponnible ci-dessous.
+      </template>
+
+      <template #modal-footer="{ close }">
+        <div class="w-100 d-flex justify-content-center">
+          <a href="https://lapalmeraiemc.fr/discord" target="_blank">
+            <b-button variant="outline-secondary" @click="close()">
+              Rejoindre Discord !
+            </b-button>
+          </a>
+        </div>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -272,6 +296,7 @@ export default {
       missingCaptcha: false,
       errorModalState: false,
       errorModalMessage: '',
+      discordModalState: false,
     };
   },
   methods: {
@@ -358,6 +383,8 @@ export default {
             this.resumeState = data.inputs.resume;
 
             this.goToFirstError(data.inputs);
+          } else if (!data.discordPresence) {
+            this.discordModalState = true;
           }
 
           this.$refs.captcha.reset();

@@ -2,8 +2,10 @@ const querystring = require('querystring');
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const discordBot = require('./discord.bot.js');
 
 const app = express();
+discordBot.start();
 
 const minecraftRegex = /^[a-zA-Z0-9_]{1,16}$/;
 const discordRegex = /^.{2,32}#[0-9]{4}$/;
@@ -65,6 +67,8 @@ app.post('/candidater', (req, res) => {
           godfathersValidity &&
           discoveryValidity &&
           resumeValidity,
+        discordPresence:
+          discordValidity && discordBot.isUserPresent(req.body.discord),
       };
 
       res.json(response);
