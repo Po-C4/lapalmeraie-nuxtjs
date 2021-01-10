@@ -1,7 +1,10 @@
 <template>
   <header class="bg bg-dark text-white" :style="cssVars">
     <b-container fluid class="bg-overlay">
-      <b-row class="align-items-center" :class="{ fullscreen: fullscreen }">
+      <b-row
+        class="align-items-center pt-5"
+        :class="{ fullscreen: fullscreen }"
+      >
         <b-col class="text-center">
           <h1 class="title font-weight-light display-3">
             {{ title }}

@@ -3,14 +3,15 @@
     toggleable="lg"
     fixed="top"
     type="dark"
-    :variant="scrolled ? 'primary' : 'muted'"
+    :variant="isOpen || scrolled ? 'primary' : 'muted'"
     class="mx-auto"
   >
+    <!-- <div v-b-visible="handleVisible" -->
     <b-navbar-brand to="/"> La Palmeraie </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse" />
 
-    <b-collapse id="nav-collapse" is-nav>
+    <b-collapse id="nav-collapse" v-model="isOpen" is-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/" :active="$route.path === '/'" class="my-auto">
           Accueil
@@ -58,6 +59,7 @@ export default {
   data() {
     return {
       scrolled: false,
+      isOpen: false,
     };
   },
   mounted() {
