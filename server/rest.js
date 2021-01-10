@@ -10,6 +10,7 @@ const discordRegex = /^.{2,32}#[0-9]{4}$/;
 const ageRegex = /^[0-9]{1,2}$/;
 const godfathersRegex = /^[a-zA-Z0-9_]{1,16}( [a-zA-Z0-9_]{1,16}){0,2}$/;
 const discoveryMaxLength = 256;
+const resumeMinLength = 128;
 const resumeMaxLength = 2048;
 
 app.disable('x-powered-by');
@@ -26,9 +27,11 @@ app.post('/candidater', (req, res) => {
     )
     .then(({ data: { success } }) => {
       if (!success) {
-        res
-          .status(401)
-          .json({ success: false, message: 'The captcha token is invalid' });
+        res.status(401).json({
+          success: false,
+          message:
+            'Le captcha est invalide veuillez réessayer. Si le problème persiste contactez le staff sur discord.',
+        });
         return;
       }
 
@@ -41,7 +44,9 @@ app.post('/candidater', (req, res) => {
         req.body.discovery === '' ||
         req.body.discovery.length <= discoveryMaxLength;
       const resumeValidity =
-        req.body.resume !== '' && req.body.resume.length <= resumeMaxLength;
+        req.body.resume !== '' &&
+        req.body.resume.length >= resumeMinLength &&
+        req.body.resume.length <= resumeMaxLength;
 
       const response = {
         success: true,
@@ -67,7 +72,8 @@ app.post('/candidater', (req, res) => {
     .catch(() => {
       res.status(401).json({
         success: false,
-        message: 'An unknown error occured while validating the captcha token',
+        message:
+          "Une erreur inconnue s'est produite lors de la validation du captcha. Si le problème persiste contactez le staff sur discord.",
       });
     });
 });

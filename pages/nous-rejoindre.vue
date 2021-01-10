@@ -11,7 +11,9 @@
       <b-form ref="form" @submit.prevent="onSubmit">
         <b-row>
           <b-col lg="6">
-            <label for="minecraft">Pseudo Minecraft</label>
+            <label for="minecraft">
+              Pseudo Minecraft <span class="is-required">*</span>
+            </label>
             <b-input
               id="minecraft"
               ref="minecraft"
@@ -21,14 +23,23 @@
               :state="minecraftState"
               @update="testMinecraft"
             />
-            <b-form-text>
+            <b-form-text
+              v-if="minecraftState !== null && !minecraftState"
+              text-variant="danger"
+            >
+              Un pseudo minecraft peut contenir jusqu'à 16 caractères
+              alphanumériques et '_'.
+            </b-form-text>
+            <b-form-text v-else>
               Votre pseudo en jeu. Ne le changez pas jusqu'à la validation de
               votre candidature.
             </b-form-text>
           </b-col>
 
           <b-col lg="6" class="mt-4 mt-lg-0">
-            <label for="discord">Pseudo Discord#1234</label>
+            <label for="discord">
+              Pseudo Discord#1234 <span class="is-required">*</span>
+            </label>
             <b-input
               id="discord"
               ref="discord"
@@ -38,7 +49,14 @@
               :state="discordState"
               @update="testDiscord"
             />
-            <b-form-text>
+            <b-form-text
+              v-if="discordState !== null && !discordState"
+              text-variant="danger"
+            >
+              Un pseudo discord doit faire entre 2 et 32 caractères et le
+              discriminant est obligatoire (#1234).
+            </b-form-text>
+            <b-form-text v-else>
               Votre pseudo Discord et votre tag. Ne le changez pas jusqu'à la
               validation de votre candidature.
             </b-form-text>
@@ -47,7 +65,7 @@
 
         <b-row class="mt-4 mt-lg-3">
           <b-col lg="4">
-            <label for="age">Âge</label>
+            <label for="age">Âge <span class="is-required">*</span></label>
             <b-input
               id="age"
               ref="age"
@@ -57,7 +75,13 @@
               :state="ageState"
               @update="testAge"
             />
-            <b-form-text>
+            <b-form-text
+              v-if="ageState !== null && !ageState"
+              text-variant="danger"
+            >
+              L'âge peut uniquement contenir des chiffres.
+            </b-form-text>
+            <b-form-text v-else>
               Votre âge. Cette information n'est utile que pour la candidature
               et n'est pas sauvegardée.
             </b-form-text>
@@ -74,7 +98,14 @@
               :state="godfathersState"
               @update="testGodfathers"
             />
-            <b-form-text>
+            <b-form-text
+              v-if="godfathersState !== null && !godfathersState"
+              text-variant="danger"
+            >
+              Un pseudo minecraft peut contenir jusqu'à 16 caractères
+              alphanumériques et '_'. Tu ne peux pas avoir plus de 3 parrains.
+            </b-form-text>
+            <b-form-text v-else>
               Si vous comptez jouer avec des personnes déjà présentes sur le
               serveur, notez-les ici.
             </b-form-text>
@@ -110,7 +141,9 @@
 
         <b-row class="mt-4 mt-lg-3">
           <b-col>
-            <label for="resume">Votre Candidature</label>
+            <label for="resume">
+              Votre Candidature <span class="is-required">*</span>
+            </label>
             <b-form-textarea
               id="resume"
               ref="resume"
@@ -132,7 +165,13 @@
             >
               {{ resumeLength }} / {{ resumeMaxLength }}
             </b-form-text>
-            <b-form-text class="description">
+            <b-form-text
+              v-if="resumeState !== null && !resumeState"
+              text-variant="danger"
+            >
+              La candidature doit faire au moins 128 caractères.
+            </b-form-text>
+            <b-form-text v-else class="description">
               Qui êtes-vous ? Que comptez-vous faire sur le serveur ? Quels sont
               vos objectifs, vos ambitions ? Qu'est-ce qui vous attire sur le
               serveur ?
@@ -158,8 +197,8 @@
                 text-variant="danger"
                 class="text-center"
               >
-                Tu dois compléter le captcha ci-dessus avant de valider ta
-                candidature
+                Tu dois compléter le captcha ci-dessus avant de pouvoir valider
+                ta candidature
               </b-form-text>
             </div>
           </b-col>
@@ -180,6 +219,17 @@
         </b-row>
       </b-form>
     </b-container>
+
+    <b-modal
+      v-model="errorModalState"
+      title="Une erreur s'est produite"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      hide-footer
+      centered
+    >
+      {{ errorModalMessage }}
+    </b-modal>
   </div>
 </template>
 
@@ -201,7 +251,7 @@ export default {
       discordRegex: /^.{2,32}#[0-9]{4}$/,
       age: '',
       ageState: null,
-      ageRegex: /^[0-9]{1,2}$/,
+      ageRegex: /^[0-9]{1,3}$/,
       godfathers: '',
       godfathersState: null,
       godfathersRegex: /^[a-zA-Z0-9_]{1,16}( [a-zA-Z0-9_]{1,16}){0,2}$/,
@@ -214,11 +264,14 @@ export default {
       resume: '',
       resumeState: null,
       resumeLength: 0,
+      resumeMinLength: 128,
       resumeMaxLength: 2048,
-      resumeTooltipVariant: 'warning',
+      resumeTooltipVariant: 'danger',
       resumeTooltip: false,
       captchaToken: null,
       missingCaptcha: false,
+      errorModalState: false,
+      errorModalMessage: '',
     };
   },
   methods: {
@@ -251,7 +304,8 @@ export default {
     },
     testResume() {
       this.resumeState =
-        this.resume.length > 0 && this.resume.length <= this.resumeMaxLength;
+        this.resume.length >= this.resumeMinLength &&
+        this.resume.length <= this.resumeMaxLength;
       return this.resumeState;
     },
     testCaptcha() {
@@ -278,34 +332,46 @@ export default {
           });
           return false;
         }
-        }
+      }
       return true;
     },
-    async onSubmit() {
+    onSubmit() {
       if (!this.updateInputsStates()) return;
 
-      const res = await this.$axios.$post('/api/candidater', {
-        token: this.captchaToken,
-        minecraft: this.minecraft,
-        discord: this.discord,
-        age: this.age,
-        godfathers: this.godfathers,
-        discovery: this.discovery,
-        resume: this.resume,
-      });
+      this.$axios
+        .post('/api/candidater', {
+          token: this.captchaToken,
+          minecraft: this.minecraft,
+          discord: this.discord,
+          age: this.age,
+          godfathers: this.godfathers,
+          discovery: this.discovery,
+          resume: this.resume,
+        })
+        .then(({ data }) => {
+          if (!data.inputsValidity) {
+            this.minecraftState = data.inputs.minecraft;
+            this.discordState = data.inputs.discord;
+            this.ageState = data.inputs.age;
+            this.godfathersState = data.inputs.godfathers;
+            this.discoveryState = data.inputs.discovery;
+            this.resumeState = data.inputs.resume;
 
-      if (!res.inputsValidity) {
-        this.minecraftState = res.inputs.minecraft;
-        this.discordState = res.inputs.discord;
-        this.ageState = res.inputs.age;
-        this.godfathersState = res.inputs.godfathers;
-        this.discoveryState = res.inputs.discovery;
-        this.resumeState = res.inputs.resume;
+            this.goToFirstError(data.inputs);
+          }
 
-        this.goToFirstError(res.inputs);
-      }
+          this.$refs.captcha.reset();
+          this.captchaToken = null;
+        })
+        .catch(({ response: { data: err } }) => {
+          if (!err.success) {
+            this.errorModalState = true;
+            this.errorModalMessage = err.message;
+          }
 
-      this.$refs.captcha.reset();
+          this.$refs.captcha.reset();
+          this.captchaToken = null;
+        });
     },
     onVerify(token) {
       this.captchaToken = token;
@@ -332,14 +398,15 @@ export default {
     },
     updateResumeTooltip({ length }) {
       this.resumeLength = length;
-      this.resumeTooltip = length >= 2000;
-      this.resumeTooltipVariant = length >= 2038 ? 'danger' : 'warning';
+      this.resumeTooltip = length >= 2000 || length < 192;
+      this.resumeTooltipVariant =
+        length < this.resumeMinLength || length >= 2038 ? 'danger' : 'warning';
     },
     hideResumeTooltip() {
       this.resumeTooltip = false;
     },
     showResumeTooltip() {
-      this.resumeTooltip = this.resumeLength >= 2000;
+      this.resumeTooltip = true;
     },
   },
 };
@@ -382,5 +449,10 @@ textarea.form-control {
 
 .length-tooltip + .description {
   padding-right: 70px;
+}
+
+.is-required {
+  font-weight: bold;
+  color: var(--danger);
 }
 </style>
