@@ -19,3 +19,9 @@ const fetchUuid = async (username) => {
 exports.playerExists = async (username) => {
   return typeof (await fetchUuid(username)) !== 'undefined';
 };
+
+exports.getHeadUrl = async (username) => {
+  const uuid = await fetchUuid(username);
+  if (typeof uuid === 'undefined') return undefined;
+  return `https://crafatar.com/avatars/${uuid}?overlay`;
+};

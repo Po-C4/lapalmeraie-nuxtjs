@@ -71,7 +71,15 @@ app.post('/candidater', (req, res) => {
         cache.playerExists(req.body.minecraft).then((playerExists) => {
           response.playerExists = playerExists;
 
-      res.json(response);
+          if (
+            response.inputsValidity &&
+            response.discordPresence &&
+            playerExists
+          ) {
+            discordBot.sendUserResume(req.body);
+          }
+
+          res.json(response);
         });
       } else {
         res.json(response);
