@@ -254,6 +254,18 @@
         </div>
       </template>
     </b-modal>
+
+    <b-modal
+      v-model="minecraftModalState"
+      title="Une erreur s'est produite"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      hide-footer
+      centered
+    >
+      Il n'y a pas de compte Minecraft avec le pseudo '{{ minecraft }}' assurez
+      vous d'avoir bien orthographié votre pseudo
+    </b-modal>
   </div>
 </template>
 
@@ -297,6 +309,7 @@ export default {
       errorModalState: false,
       errorModalMessage: '',
       discordModalState: false,
+      minecraftModalState: false,
     };
   },
   methods: {
@@ -383,6 +396,8 @@ export default {
             this.resumeState = data.inputs.resume;
 
             this.goToFirstError(data.inputs);
+          } else if (!data.playerExists) {
+            this.minecraftModalState = true;
           } else if (!data.discordPresence) {
             this.discordModalState = true;
           }

@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const discordBot = require('./discord.bot.js');
+const cache = require('./cache.js');
 
 const app = express();
 discordBot.start();
@@ -37,41 +38,44 @@ app.post('/candidater', (req, res) => {
         return;
       }
 
-      const minecraftValidity = minecraftRegex.test(req.body.minecraft);
-      const discordValidity = discordRegex.test(req.body.discord);
-      const ageValidity = ageRegex.test(req.body.age);
-      const godfathersValidity =
+      const minecraft = minecraftRegex.test(req.body.minecraft);
+      const discord = discordRegex.test(req.body.discord);
+      const age = ageRegex.test(req.body.age);
+      const godfathers =
         req.body.godfathers === '' || godfathersRegex.test(req.body.godfathers);
-      const discoveryValidity =
+      const discovery =
         req.body.discovery === '' ||
-        req.body.discovery.length <= discoveryMaxLength;
-      const resumeValidity =
+        req.body.discovery?.length <= discoveryMaxLength;
+      const resume =
         req.body.resume !== '' &&
-        req.body.resume.length >= resumeMinLength &&
-        req.body.resume.length <= resumeMaxLength;
+        req.body.resume?.length >= resumeMinLength &&
+        req.body.resume?.length <= resumeMaxLength;
 
       const response = {
         success: true,
         inputs: {
-          minecraft: minecraftValidity,
-          discord: discordValidity,
-          age: ageValidity,
-          godfathers: godfathersValidity,
-          discovery: discoveryValidity,
-          resume: resumeValidity,
+          minecraft,
+          discord,
+          age,
+          godfathers,
+          discovery,
+          resume,
         },
         inputsValidity:
-          minecraftValidity &&
-          discordValidity &&
-          ageValidity &&
-          godfathersValidity &&
-          discoveryValidity &&
-          resumeValidity,
-        discordPresence:
-          discordValidity && discordBot.isUserPresent(req.body.discord),
+          minecraft && discord && age && godfathers && discovery && resume,
+        discordPresence: discord && discordBot.isUserPresent(req.body.discord),
+        playerExists: false,
       };
 
+      if (minecraft) {
+        cache.playerExists(req.body.minecraft).then((playerExists) => {
+          response.playerExists = playerExists;
+
       res.json(response);
+        });
+      } else {
+        res.json(response);
+      }
     })
     .catch(() => {
       res.status(401).json({
