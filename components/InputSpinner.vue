@@ -92,9 +92,7 @@ export default {
   },
   watch: {
     numericValue(val, oldVal) {
-      console.log(this.numericValue);
       this.numericValue = this.parse(this.decimalFormatter(false));
-      console.log(this.numericValue);
       this.$emit('input', this.numericValue, oldVal);
     },
   },

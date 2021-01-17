@@ -184,7 +184,7 @@
             <div style="width: min-content">
               <VueRecaptcha
                 ref="captcha"
-                :sitekey="$config.siteKey"
+                :sitekey="$config.recaptchaKey"
                 type="v2"
                 language="fr"
                 load-recaptcha-script

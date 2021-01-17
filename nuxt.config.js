@@ -12,10 +12,10 @@ export default {
 
   // Environment variables
   publicRuntimeConfig: {
-    siteKey: process.env.SITE_KEY,
+    recaptchaKey: process.env.RECAPTCHA_KEY,
   },
   privateRuntimeConfig: {
-    secretSiteKey: process.env.SECRET_SITE_KEY,
+    recaptchaSecret: process.env.RECAPTCHA_SECRET,
   },
 
   serverMiddleware: [{ path: '/api', handler: '~/server/rest.js' }],

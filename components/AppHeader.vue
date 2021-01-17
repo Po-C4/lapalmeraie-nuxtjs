@@ -78,7 +78,7 @@ export default {
 }
 
 .row {
-  height: 60vh;
+  min-height: 60vh;
 }
 
 .row.fullscreen {

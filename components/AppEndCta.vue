@@ -1,6 +1,6 @@
 <template>
   <b-container fluid class="bg px-0 bg-dark text-white" :style="cssVars">
-    <b-row class="bg-overlay w-100 mx-0">
+    <b-row class="bg-overlay w-100 mx-0 py-4">
       <b-col
         class="text-center d-flex flex-wrap justify-content-center align-content-center"
       >
@@ -61,7 +61,7 @@ export default {
 }
 
 .bg-overlay {
-  height: 45vh;
+  min-height: 45vh;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
