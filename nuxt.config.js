@@ -13,9 +13,11 @@ export default {
   // Environment variables
   publicRuntimeConfig: {
     recaptchaKey: process.env.RECAPTCHA_KEY,
+    paypalKey: process.env.PAYPAL_KEY,
   },
   privateRuntimeConfig: {
     recaptchaSecret: process.env.RECAPTCHA_SECRET,
+    paypalSecret: process.env.PAYPAL_SECRET,
   },
 
   serverMiddleware: [{ path: '/api', handler: '~/server/rest.js' }],
@@ -58,10 +60,18 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    // https://github.com/nuxt-community/proxy-module
+    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/': { target: 'http://localhost:8080', changeOrigin: true },
+  },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},

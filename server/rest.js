@@ -16,6 +16,11 @@ const discoveryMaxLength = 256;
 const resumeMinLength = 128;
 const resumeMaxLength = 2048;
 
+const paypalEndpoint =
+  process.env.PAYPAL_MODE === 'SANDBOX'
+    ? 'https://api-m.sandbox.paypal.com'
+    : 'https://api-m.paypal.com';
+
 app.disable('x-powered-by');
 app.use(bodyParser.json());
 
@@ -24,7 +29,7 @@ app.post('/candidater', (req, res) => {
     .post(
       'https://www.google.com/recaptcha/api/siteverify',
       querystring.stringify({
-        secret: process.env.SECRET_SITE_KEY,
+        secret: process.env.RECAPTCHA_SECRET,
         response: req.body.token,
       })
     )
@@ -92,6 +97,118 @@ app.post('/candidater', (req, res) => {
           "Une erreur inconnue s'est produite lors de la validation du captcha. Si le problème persiste contactez le staff sur discord.",
       });
     });
+});
+
+const getPaypalAccessToken = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${paypalEndpoint}/v1/oauth2/token`,
+        querystring.stringify({ grant_type: 'client_credentials' }),
+        {
+          headers: {
+            Accept: 'application/json',
+            'Accept-Language': 'fr_FR',
+            'Content-Type': 'application/json',
+          },
+          auth: {
+            username: process.env.PAYPAL_KEY,
+            password: process.env.PAYPAL_SECRET,
+          },
+        }
+      )
+      .then((res) => resolve(res.data.access_token))
+      .catch((err) => reject(err.response.data));
+  });
+};
+
+app.post('/create-order', (req, res) => {
+  if (
+    typeof req.body.username === 'undefined' ||
+    typeof req.body.amount === 'undefined'
+  ) {
+    return res.sendStatus(500);
+  }
+  const username = req.body.username === '' ? 'Anonyme ' : req.body.username;
+  const amount = parseFloat(req.body.amount).toFixed(2);
+
+  if (minecraftRegex.test(username)) {
+    getPaypalAccessToken()
+      .then((accessToken) => {
+        axios
+          .post(
+            `${paypalEndpoint}/v2/checkout/orders`,
+            {
+              intent: 'CAPTURE',
+              application_context: {
+                brand_name: 'La Palmeraie',
+                locale: 'fr-FR',
+                shipping_preference: 'NO_SHIPPING',
+                user_action: 'CONTINUE',
+              },
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: 'EUR',
+                    value: amount,
+                    breakdown: {
+                      item_total: {
+                        currency_code: 'EUR',
+                        value: amount,
+                      },
+                    },
+                  },
+                  items: [
+                    {
+                      name: 'Donation',
+                      description: username,
+                      unit_amount: {
+                        currency_code: 'EUR',
+                        value: amount,
+                      },
+                      quantity: '1',
+                      category: 'DIGITAL_GOODS',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
+          .then((response) => res.json({ id: response.data.id }))
+          .catch(() => res.sendStatus(500));
+      })
+      .catch(() => res.sendStatus(500));
+  } else {
+    res.sendStatus(500);
+  }
+});
+
+app.post('/capture-order/:id', (req, res) => {
+  getPaypalAccessToken()
+    .then((accessToken) => {
+      axios
+        .post(
+          `${paypalEndpoint}/v2/checkout/orders/${req.params.id}/capture`,
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then(() => {
+          res.json({ status: 'success' });
+        })
+        .catch(() => res.sendStatus(500));
+    })
+    .catch(() => res.sendStatus(500));
 });
 
 module.exports = app;
