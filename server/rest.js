@@ -1,4 +1,5 @@
 const querystring = require('querystring');
+const crypto = require('crypto');
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -9,17 +10,87 @@ const app = express();
 discordBot.start();
 
 const minecraftRegex = /^[a-zA-Z0-9_]{1,16}$/;
+const minecraftWhitespaceRegex = /^([a-zA-Z0-9_]{1,16}) ?$/;
 const discordRegex = /^.{2,32}#[0-9]{4}$/;
 const ageRegex = /^[0-9]{1,2}$/;
 const godfathersRegex = /^[a-zA-Z0-9_]{1,16}( [a-zA-Z0-9_]{1,16}){0,2}$/;
 const discoveryMaxLength = 256;
 const resumeMinLength = 128;
 const resumeMaxLength = 2048;
+const amountRegex = /^[0-9]+(?:.[0-9]{1,2})?$/;
+const uuidRegex = /^([0-9a-fA-F]{8})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{12})$/;
 
 const paypalEndpoint =
   process.env.PAYPAL_MODE === 'SANDBOX'
     ? 'https://api-m.sandbox.paypal.com'
     : 'https://api-m.paypal.com';
+
+const getPaypalAccessToken = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${paypalEndpoint}/v1/oauth2/token`,
+        querystring.stringify({ grant_type: 'client_credentials' }),
+        {
+          headers: {
+            Accept: 'application/json',
+            'Accept-Language': 'fr_FR',
+            'Content-Type': 'application/json',
+          },
+          auth: {
+            username: process.env.PAYPAL_KEY,
+            password: process.env.PAYPAL_SECRET,
+          },
+        }
+      )
+      .then((res) => resolve(res.data.access_token))
+      .catch((err) => reject(err.response.data));
+  });
+};
+
+const generateSignature = (method, route) => {
+  return crypto
+    .createHmac('SHA256', process.env.BUNGEE_SECRET)
+    .update(`${method.toUpperCase()}${route}`)
+    .digest('hex');
+};
+
+const contributorAdd = (username) => {
+  return new Promise((resolve, reject) => {
+    if (!minecraftRegex.test(username)) reject(new Error('Invalid username'));
+    axios
+      .post(
+        `https://lapalmeraiemc.fr/api/v1/contributor/${username}`,
+        {},
+        {
+          headers: {
+            'X-Signature': generateSignature(
+              'post',
+              `/api/v1/contributor/${username}`
+            ),
+          },
+        }
+      )
+      .then(({ data: { result } }) => resolve(result))
+      .catch((err) => reject(err));
+  });
+};
+
+const whitelistGet = (uuid) => {
+  return new Promise((resolve, reject) => {
+    if (!uuidRegex.test(uuid)) {
+      return reject(new Error('Invalid username'));
+    }
+    axios
+      .get(`https://lapalmeraiemc.fr/api/v1/whitelist/${uuid}`, {
+        headers: {
+          'X-Signature': generateSignature('get', `/api/v1/whitelist/${uuid}`),
+        },
+      })
+      .then(({ data }) => resolve(data.result))
+      .catch((err) => reject(err));
+  });
+};
 
 app.disable('x-powered-by');
 app.use(bodyParser.json());
@@ -99,40 +170,20 @@ app.post('/candidater', (req, res) => {
     });
 });
 
-const getPaypalAccessToken = () => {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(
-        `${paypalEndpoint}/v1/oauth2/token`,
-        querystring.stringify({ grant_type: 'client_credentials' }),
-        {
-          headers: {
-            Accept: 'application/json',
-            'Accept-Language': 'fr_FR',
-            'Content-Type': 'application/json',
-          },
-          auth: {
-            username: process.env.PAYPAL_KEY,
-            password: process.env.PAYPAL_SECRET,
-          },
-        }
-      )
-      .then((res) => resolve(res.data.access_token))
-      .catch((err) => reject(err.response.data));
-  });
-};
-
 app.post('/create-order', (req, res) => {
   if (
-    typeof req.body.username === 'undefined' ||
-    typeof req.body.amount === 'undefined'
+    typeof req.body.anonymous !== 'boolean' ||
+    !(req.body.anonymous || minecraftRegex.test(req.body.username)) ||
+    !amountRegex.test(req.body.amount)
   ) {
     return res.sendStatus(500);
   }
-  const username = req.body.username === '' ? 'Anonyme ' : req.body.username;
+
+  const username =
+    req.body.anonymous === true ? 'Anonyme  ' : req.body.username;
   const amount = parseFloat(req.body.amount).toFixed(2);
 
-  if (minecraftRegex.test(username)) {
+  if (username === 'Anonyme  ' || minecraftWhitespaceRegex.test(username)) {
     getPaypalAccessToken()
       .then((accessToken) => {
         axios
@@ -191,11 +242,21 @@ app.post('/create-order', (req, res) => {
 
 app.post('/capture-order/:id', (req, res) => {
   getPaypalAccessToken()
-    .then((accessToken) => {
-      axios
-        .post(
-          `${paypalEndpoint}/v2/checkout/orders/${req.params.id}/capture`,
-          {},
+    .then(async (accessToken) => {
+      await axios.post(
+        `${paypalEndpoint}/v2/checkout/orders/${req.params.id}/capture`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      const item = (
+        await axios.get(
+          `${paypalEndpoint}/v2/checkout/orders/${req.params.id}`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -203,12 +264,35 @@ app.post('/capture-order/:id', (req, res) => {
             },
           }
         )
-        .then(() => {
-          res.json({ status: 'success' });
-        })
-        .catch(() => res.sendStatus(500));
+      ).data.purchase_units[0].items[0];
+
+      const username = item.description.replace(minecraftWhitespaceRegex, '$1');
+
+      let contributor = false;
+      if (
+        parseFloat(item.unit_amount.value) >= 10 &&
+        username.slice(-1) !== ' '
+      ) {
+        contributor = await contributorAdd(username);
+      }
+
+      res.json({
+        status: 'success',
+        contributor,
+      });
     })
     .catch(() => res.sendStatus(500));
+});
+
+app.get('/player/:username', async (req, res) => {
+  const uuid = await cache.fetchUuid(req.params.username);
+  if (typeof uuid !== 'undefined') {
+    whitelistGet(uuid)
+      .then((result) => res.json({ result }))
+      .catch(() => res.sendStatus(500));
+  } else {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = app;

@@ -4,7 +4,7 @@ const axios = require('axios');
 exports.cache = new NodeCache({ stdTTL: 1800 });
 const endpoint = 'https://api.mojang.com/users/profiles/minecraft/';
 
-const fetchUuid = async (username) => {
+exports.fetchUuid = async (username) => {
   username = username.toLowerCase();
   let uuid = this.cache.get(username);
   if (typeof uuid === 'undefined') {
@@ -17,11 +17,11 @@ const fetchUuid = async (username) => {
 };
 
 exports.playerExists = async (username) => {
-  return typeof (await fetchUuid(username)) !== 'undefined';
+  return typeof (await this.fetchUuid(username)) !== 'undefined';
 };
 
 exports.getHeadUrl = async (username) => {
-  const uuid = await fetchUuid(username);
+  const uuid = await this.fetchUuid(username);
   if (typeof uuid === 'undefined') return undefined;
   return `https://crafatar.com/avatars/${uuid}?overlay`;
 };

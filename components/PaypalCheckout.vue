@@ -14,6 +14,10 @@ export default {
       type: String,
       required: true,
     },
+    anonymous: {
+      type: Boolean,
+      required: true,
+    },
     amount: {
       type: String,
       required: true,
@@ -45,10 +49,22 @@ export default {
             shape: 'pill',
             label: 'pay',
           },
+          onClick: (data, actions) => {
+            return new Promise((resolve, reject) => {
+              this.$emit('click', resolve, reject);
+            })
+              .then(() => {
+                return actions.resolve();
+              })
+              .catch(() => {
+                return actions.reject();
+              });
+          },
           createOrder: (data, actions) => {
             return this.$axios
               .post('/api/create-order', {
                 username: this.username,
+                anonymous: this.anonymous,
                 amount: this.amount,
               })
               .then((response) => {
