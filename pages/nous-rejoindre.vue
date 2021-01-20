@@ -456,9 +456,9 @@ export default {
 
 <style scoped>
 .form-control {
-  background-color: var(--dark) !important;
+  background-color: #272b30 !important;
   color: var(--primary) !important;
-  border: 1px solid var(--primary);
+  border: 0;
 }
 
 textarea.form-control::-webkit-scrollbar {
@@ -471,7 +471,7 @@ textarea.form-control {
 }
 
 .is-valid {
-  border: 1px solid var(--success);
+  border: 0;
   color: var(--success) !important;
 }
 

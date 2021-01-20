@@ -5,8 +5,6 @@
       class="button"
       @mousedown="longPressOn(decrement)"
       @touchstart="longPressOn(decrement)"
-      @mouseup="longPressOff"
-      @touchend="longPressOff"
       @click="
         decrement();
         delayedBlur($event);
@@ -28,8 +26,6 @@
       class="button"
       @mousedown="longPressOn(increment)"
       @touchstart="longPressOn(increment)"
-      @mouseup="longPressOff"
-      @touchend="longPressOff"
       @click="
         increment();
         delayedBlur($event);
@@ -98,6 +94,12 @@ export default {
   },
   mounted() {
     this.decimalFormatter();
+    window.addEventListener('mouseup', this.longPressOff);
+    window.addEventListener('touchend', this.longPressOff);
+  },
+  destroyed() {
+    window.removeEventListener('mouseup', this.longPressOff);
+    window.removeEventListener('touchend', this.longPressOff);
   },
   methods: {
     delayedBlur(e) {
@@ -174,12 +176,9 @@ export default {
 
 <style scoped>
 .form-control {
-  background-color: var(--dark) !important;
+  background-color: #272b30 !important;
   color: var(--primary) !important;
-  border-left: none;
-  border-right: none;
-  border-top: 1px solid var(--primary);
-  border-bottom: 1px solid var(--primary);
+  border: 0;
   border-radius: 0;
 }
 
@@ -188,7 +187,7 @@ export default {
 }
 
 .is-valid {
-  border: 1px solid var(--success);
+  border: 0px solid var(--success);
   color: var(--success) !important;
 }
 
