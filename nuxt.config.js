@@ -15,10 +15,6 @@ export default {
     recaptchaKey: process.env.RECAPTCHA_KEY,
     paypalKey: process.env.PAYPAL_KEY,
   },
-  privateRuntimeConfig: {
-    recaptchaSecret: process.env.RECAPTCHA_SECRET,
-    paypalSecret: process.env.PAYPAL_SECRET,
-  },
 
   serverMiddleware: [{ path: '/api', handler: '~/server/rest.js' }],
 

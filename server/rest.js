@@ -5,9 +5,11 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const discordBot = require('./discord.bot.js');
 const cache = require('./cache.js');
+const db = require('./db.js');
 
 const app = express();
 discordBot.start();
+db.init();
 
 const minecraftRegex = /^[a-zA-Z0-9_]{1,16}$/;
 const minecraftWhitespaceRegex = /^([a-zA-Z0-9_]{1,16}) ?$/;
@@ -55,23 +57,23 @@ const generateSignature = (method, route) => {
     .digest('hex');
 };
 
-const contributorAdd = (username) => {
+const contributorAdd = (uuid) => {
   return new Promise((resolve, reject) => {
-    if (!minecraftRegex.test(username)) reject(new Error('Invalid username'));
+    if (!uuidRegex.test(uuid)) reject(new Error('Invalid UUID'));
     axios
       .post(
-        `https://lapalmeraiemc.fr/api/v1/contributor/${username}`,
+        `https://lapalmeraiemc.fr/api/v1/contributor/${uuid}`,
         {},
         {
           headers: {
             'X-Signature': generateSignature(
               'post',
-              `/api/v1/contributor/${username}`
+              `/api/v1/contributor/${uuid}`
             ),
           },
         }
       )
-      .then(({ data: { result } }) => resolve(result))
+      .then(({ data }) => resolve(data.result))
       .catch((err) => reject(err));
   });
 };
@@ -79,7 +81,7 @@ const contributorAdd = (username) => {
 const whitelistGet = (uuid) => {
   return new Promise((resolve, reject) => {
     if (!uuidRegex.test(uuid)) {
-      return reject(new Error('Invalid username'));
+      return reject(new Error('Invalid UUID'));
     }
     axios
       .get(`https://lapalmeraiemc.fr/api/v1/whitelist/${uuid}`, {
@@ -268,12 +270,19 @@ app.post('/capture-order/:id', (req, res) => {
 
       const username = item.description.replace(minecraftWhitespaceRegex, '$1');
 
+      if (item.description === 'Anonyme  ') {
+        db.logAnonymousContribution(item.unit_amount.value);
+      } else {
+        db.logContribution(username, item.unit_amount.value);
+      }
+
       let contributor = false;
       if (
         parseFloat(item.unit_amount.value) >= 10 &&
-        username.slice(-1) !== ' '
+        item.description.slice(-1) !== ' '
       ) {
-        contributor = await contributorAdd(username);
+        const uuid = await cache.fetchUuid(username);
+        contributor = await contributorAdd(uuid);
       }
 
       res.json({
