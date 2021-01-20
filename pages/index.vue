@@ -86,6 +86,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'PageIndex',
+};
+</script>
+
 <style scoped>
 .divider {
   width: 10vw;

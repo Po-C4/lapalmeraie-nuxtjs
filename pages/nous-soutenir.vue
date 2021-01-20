@@ -1,8 +1,8 @@
 <template>
   <div class="bg-dark text-white">
     <AppHeader
-      background="bg-boutique"
-      title="Nous soutenir"
+      background="bg-support"
+      title="Nous Soutenir"
       subtitle="Toutes contributions supérieures à 10€ vous donneront accès au grade donateur !"
     />
 
@@ -106,7 +106,7 @@
 
 <script>
 export default {
-  name: 'Boutique',
+  name: 'PageSupport',
   data() {
     return {
       anonymous: false,

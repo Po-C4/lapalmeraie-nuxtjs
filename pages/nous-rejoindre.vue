@@ -273,6 +273,7 @@
 import VueRecaptcha from 'vue-recaptcha';
 
 export default {
+  name: 'PageJoin',
   components: {
     VueRecaptcha,
   },

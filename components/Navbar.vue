@@ -30,13 +30,13 @@
         >
           Votez !
         </b-nav-item>
-        <b-nav-item to="/boutique" class="nav-first-btn">
+        <b-nav-item to="/nous-soutenir" class="nav-first-btn">
           <b-button
             variant="outline-light"
-            :class="routeMatch('/boutique')"
+            :class="routeMatch('/nous-soutenir')"
             @click="delayedBlur"
           >
-            La Boutique
+            Nous Soutenir !
           </b-button>
         </b-nav-item>
         <b-nav-item to="/nous-rejoindre" class="nav-btn">
