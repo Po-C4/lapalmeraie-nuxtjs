@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-dark">
     <Navbar />
     <Nuxt />
     <AppFooter />
