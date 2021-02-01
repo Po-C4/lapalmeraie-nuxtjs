@@ -1,11 +1,9 @@
-## 0 — Lier son compte
+## 0 — S'inscrire & Jouer sur le serveur
+Pour pouvoir jouer sur le serveur, il est **obligatoire** de faire une candidature disponible à [ce lien !](https://lapalmeraiemc.fr/nous-rejoindre)
 
-Pour pouvoir jouer sur le serveur, il est **impératif** de lier son compte Minecraft à son compte Discord.
+Attention à bien renseigner vos informations personnelles, pour que vous pussiez être ajoutés à la whitelist.
 
-Pour ce faire il vous suffit de rejoindre le serveur discord de **La Palmeraie** disponible à [ce lien !](https://lapalmeraiemc.fr/discord)
-Ensuite rendez-vous dans le canal #lies-ton-compte et effectuez la commande `$link <votre pseudo minecraft>`
-
-Et voilà, votre compte est lié, vous etes donc devenu membre du serveur, vous pouvez desormais jouer au jeu.
+Une fois accepté, votre compte est lié, vous êtes donc devenu membre du serveur, vous pouvez désormais jouer sur La Palmeraie.
 
 ## 1 — Le Spawn
 
@@ -17,7 +15,7 @@ Le spawn contient beaucoup de choses, en voici une liste :
 ### La Place Centrale
 
 La Place Centrale est l'endroit où les joueurs se rencontrent, et où vous pourrez effectuer du commerce.
-Elle contient 3 points d'intêret majeurs :
+Elle contient 3 points d'intérêt majeurs :
 
 - **Le Hall des Villageois** : Vous y trouverez des PNJs proposant toutes sortes d'échanges, qu'ils soient saisonniers ou permanants.
 - **La Salle de Réunion** : Ici, vous trouverez les membres du Staff, qui vous apportent La Palmeraie.
@@ -26,7 +24,7 @@ Elle contient 3 points d'intêret majeurs :
 
 ### Le Monde Freebuild
 
-Le monde Freebuild se trouve juste en dessous de l'île du spawn, il vous suffit de sauter et de commencer votre aventure, repérer des lieux ou vous installer et build librement ! Le monde freebuild fait 50000 blocs carrés.
+Le monde Freebuild se trouve juste en dessous de l'île du spawn, il vous suffit de sauter et de commencer votre aventure, repérer des lieux ou vous installer et build librement ! Le monde freebuild fait 40 000 x 40 000 blocs.
 
 > <b-icon-exclamation-triangle-fill variant="light"></b-icon-exclamation-triangle-fill> Evitez de trop détruire les zones où vous ne comptez pas vous installer. Si vous trouvez un biome sympa et qu'une personne l'a déjà détruit, vous allez vouloir l'insulter. Ne soyez pas cette personne.
 
@@ -96,9 +94,7 @@ Un commerçant est une entité qui vous permet de commercer avec les autres joue
 
 #### Comment obtenir un commerçant ?
 
-Dans la place centrale, **Roberto DeLaChambreDuCommerce** vend des Effigies de commerce pour 16 Ƀ. Vous pouvez uniquement utiliser 5 commerçants à la fois (7 commerçants max pour les actionnaires).
-
-> <b-icon-exclamation-triangle-fill variant="light"></b-icon-exclamation-triangle-fill> Utiliser un commerçant coute 1 Ƀ par jour.
+Dans la place centrale, **Roberto DeLaChambreDuCommerce** vend des Effigies de commerce pour 16 Ƀ. Vous pouvez uniquement utiliser 5 commerçants à la fois (7 commerçants max pour les donateurs).
 
 #### Comment utiliser les commerçants ?
 
@@ -117,7 +113,7 @@ Dans la place centrale, **Roberto DeLaChambreDuCommerce** vend des Effigies de c
    La dernière ligne contient les options du commerçant.
    Une fois que vous avez terminé, fermez le menu.<br>
    <b-img fluid src="https://cdn.discordapp.com/attachments/664863799219847190/777557930010083328/unknown.png" />
-7. Lorsque votre commerçant est prêt, faites shift+clic gauche pour ouvrir son menu de paie. Il vous coûtera 1 Ƀ par jour réél.
+7. Lorsque votre commerçant est prêt, faites shift+clic gauche pour ouvrir son menu de paie. 
 8. Votre commerçant est prêt !
 
 ## 3 — Les Datapacks
@@ -128,6 +124,7 @@ Le serveur utilise plusieurs datapacks pour améliorer l'expérience de jeu. En 
 - **Cauldron Concrete** — Vous permet de transformer du béton en poudre en béton durci, en le lancant dans un chaudron repli d'eau.
 - **Armor Statues** — Ajoute un livre permettant de contrôler l'affichage et la position des Porte-Armures, des Cadres, et de tout un tas d'autres objets. Il est possible de récupérer en signant un livre sous le nom `Statues`.
 - **Larger Phantoms** — Plus vous passez de nuits sans dormir, plus les phantoms deviennent coriaces et imposants.
+- **Custom Nether Portals** — Permet de faire des portails du Nether de n'importe quelle forme et/ou taille.
 
 ## 4 — Les commandes
 
@@ -352,16 +349,18 @@ Utilisation : Vous ouvre un inventaire vous permettant d'acheter des têtes pour
 </b-col>
 </b-row>
 
-## 5 — Le Grade Actionnaire
+## 5 — Le Grade Donateur
 
-**Pour montrer leur soutien au serveur, les membres peuvent contribuer à la hauteur de `2.99€ par mois`. Les bénéfices qu'ils obiennent en contrepartie sont les suivants :**
+**Pour montrer leur soutien au serveur, les membres peuvent contribuer à la hauteur de `10€`. Les bénéfices qu'ils obtiennent en contrepartie sont les suivants :**
 
 - Possibilité de recevoir 3 Token Banane a la place de 1 lors d'un vote, sans retirer la probabilité d'en avoir 2
 - L'accès a un home supplémentaire (pour un total de 2 homes)
-- La possiblilité d'écrire en couleur dans le chat :<br>
+- La possibilité d'écrire en couleur dans le chat :<br>
   <b-img fluid src="https://cdn.discordapp.com/attachments/664863799219847190/777561965060161536/example2-png.png" /><br>
   écriture en Hex code disponible via `&#123` ou `&#123456`
-- Acces au `/rest` : permet de réinitialiser le temps sans avoir dormi, pratique pour éviter les phantoms.
-- Acces au `/hat` : permet de mettre l'item en main sur sa tête. (avec une emeraude ca fait un sims)
-- Acces au `/trash` : clairement une poubelle portative ou que vous soyez.
+- Accès au `/rest` : permet de réinitialiser le temps sans avoir dormi, pratique pour éviter les phantoms.
+- Accès au `/hat` : permet de mettre l'item en main sur sa tête. (avec une émeraude ca fait un sims)
+- Accès au `/trash` : clairement une poubelle portative ou que vous soyez.
 - Avoir une couleur et un rôle différent dans le chat, et sur le discord.
+
+Vous pouvez faire une donation à [ce lien !](https://lapalmeraiemc.fr/nous-soutenir) Merci !
