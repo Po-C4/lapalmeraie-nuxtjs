@@ -51,3 +51,30 @@ exports.logAnonymousContribution = (amount) => {
     connection.release();
   });
 };
+
+exports.getTopVoters = () => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) reject(err);
+      connection.query(
+        `SELECT \`votes\`.\`uuid\`, \`username\`, COUNT(\`votes\`.\`uuid\`) AS \`total\`
+        FROM \`votes\` INNER JOIN \`players\` ON \`votes\`.\`uuid\` = \`players\`.\`uuid\`
+        WHERE (\`timestamp\` BETWEEN DATE_FORMAT(CURRENT_TIMESTAMP, '%Y-%m-01') AND CURRENT_TIMESTAMP)
+        GROUP BY \`username\` ORDER BY \`total\` DESC, \`timestamp\` DESC LIMIT 10`,
+        (err, res, fields) => {
+          if (err) reject(err);
+          res = res.map((v) => Object.assign({}, v));
+          while (res.length < 10) {
+            res.push({
+              uuid: '00000000-0000-0000-0000-000000000000',
+              username: 'N/A',
+              total: 'N/A',
+            });
+          }
+          resolve(res);
+        }
+      );
+      connection.release();
+    });
+  });
+};

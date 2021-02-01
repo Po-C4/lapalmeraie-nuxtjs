@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'PageTutorialIndex',
+  name: 'PageTutorialChapter',
   async asyncData({ $content, params, error }) {
     try {
       return {

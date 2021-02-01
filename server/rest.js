@@ -304,4 +304,17 @@ app.get('/player/:username', async (req, res) => {
   }
 });
 
+app.get('/top-voters', (req, res) => {
+  cache
+    .getTopVoters()
+    .then((result) =>
+      res.json({
+        success: true,
+        timestamp: result.timestamp,
+        results: result.topVoters,
+      })
+    )
+    .catch(() => res.json({ success: false }));
+});
+
 module.exports = app;

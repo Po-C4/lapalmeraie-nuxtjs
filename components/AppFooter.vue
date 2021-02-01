@@ -101,7 +101,7 @@
 
     <div class="text-center py-3">
       <p>
-        © 2020
+        © 2021
         <nuxt-link to="/" class="inline-link">lapalmeraiemc.fr</nuxt-link> Tous
         droits réservés.
       </p>
