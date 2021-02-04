@@ -1,5 +1,6 @@
 ## 0 — S'inscrire & Jouer sur le serveur
-Pour pouvoir jouer sur le serveur, il est **obligatoire** de faire une candidature disponible à [ce lien !](https://lapalmeraiemc.fr/nous-rejoindre)
+
+Pour pouvoir jouer sur le serveur, il est **obligatoire** de faire une candidature disponible à [ce lien !](/nous-rejoindre)
 
 Attention à bien renseigner vos informations personnelles, pour que vous pussiez être ajoutés à la whitelist.
 
@@ -113,7 +114,7 @@ Dans la place centrale, **Roberto DeLaChambreDuCommerce** vend des Effigies de c
    La dernière ligne contient les options du commerçant.
    Une fois que vous avez terminé, fermez le menu.<br>
    <b-img fluid src="https://cdn.discordapp.com/attachments/664863799219847190/777557930010083328/unknown.png" />
-7. Lorsque votre commerçant est prêt, faites shift+clic gauche pour ouvrir son menu de paie. 
+7. Lorsque votre commerçant est prêt, faites shift+clic gauche pour ouvrir son menu de paie.
 8. Votre commerçant est prêt !
 
 ## 3 — Les Datapacks
@@ -354,7 +355,6 @@ Utilisation : Vous ouvre un inventaire vous permettant d'acheter des têtes pour
 **Pour montrer leur soutien au serveur, les membres peuvent contribuer à la hauteur de `10€`. Les bénéfices qu'ils obtiennent en contrepartie sont les suivants :**
 
 - Possibilité de recevoir 3 Token Banane a la place de 1 lors d'un vote, sans retirer la probabilité d'en avoir 2
-- L'accès a un home supplémentaire (pour un total de 2 homes)
 - La possibilité d'écrire en couleur dans le chat :<br>
   <b-img fluid src="https://cdn.discordapp.com/attachments/664863799219847190/777561965060161536/example2-png.png" /><br>
   écriture en Hex code disponible via `&#123` ou `&#123456`
@@ -363,4 +363,4 @@ Utilisation : Vous ouvre un inventaire vous permettant d'acheter des têtes pour
 - Accès au `/trash` : clairement une poubelle portative ou que vous soyez.
 - Avoir une couleur et un rôle différent dans le chat, et sur le discord.
 
-Vous pouvez faire une donation à [ce lien !](https://lapalmeraiemc.fr/nous-soutenir) Merci !
+Vous pouvez faire une donation à [ce lien !](/nous-soutenir) Merci !

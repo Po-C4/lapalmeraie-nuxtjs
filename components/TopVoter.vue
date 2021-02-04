@@ -33,6 +33,9 @@
         <b-img
           :src="`https://crafatar.com/avatars/${data.value}?size=24&default=MHF_Steve&overlay`"
           style="float: right"
+          width="24px"
+          height="24px"
+          :alt="`Tête de ${data.item.username}`"
         />
       </template>
 

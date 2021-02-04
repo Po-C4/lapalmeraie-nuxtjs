@@ -21,12 +21,11 @@
           <h3>Le serveur en quelques mots</h3>
           <hr class="divider d-inline-block mb-4 mt-0" />
           <p>
-            La Palmeraie est un serveur Minecraft sur whitelist 1.16.3
-            majoritairement axé sur le vanilla. Venez rejoindre une communauté
-            familiale et sympathique, avec des ajouts de gameplay et de qualité
-            de vie ! Rejoignez une ville ou crééz la votre ! Devenez riche en
-            vendant vos ressources à l'aide de commerçants ! Notre carte de
-            50000 blocs carré vous attend !
+            La Palmeraie est un serveur Minecraft sur whitelist majoritairement
+            axé sur le vanilla. Venez rejoindre une communauté familiale et
+            sympathique, avec des ajouts de gameplay et de qualité de vie !
+            Rejoignez une ville ou crééz la votre ! Devenez riche en vendant vos
+            ressources à l'aide de commerçants !
           </p>
           <b-button
             variant="secondary"

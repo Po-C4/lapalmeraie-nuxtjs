@@ -62,7 +62,7 @@ export default {
 
 .bg-overlay {
   min-height: 45vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
 @media (max-width: 599.98px) {
