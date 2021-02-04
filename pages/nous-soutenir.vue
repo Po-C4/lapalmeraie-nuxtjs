@@ -7,7 +7,23 @@
     />
 
     <b-container class="mt-5">
-      <b-form ref="form">
+      <b-row align-h="center">
+        <b-col lg="7">
+          <p>
+            Pour obtenir le grade donateur une contribution supérieure à 10€
+            doit être faite. Tous vos dons permettront à La Palmeraie de se
+            développer, en finançant l'hébergement, les plugins, et toute
+            l'administration de l'association.
+          </p>
+          <p>
+            Pour plus d'informations sur les bénéfices que donne le grade
+            donateur, nous vous invitons à vous renseigner
+            <nuxt-link to="/tutoriel#5--le-grade-donateur">ici</nuxt-link>.
+          </p>
+        </b-col>
+      </b-row>
+
+      <b-form ref="form" class="mt-4">
         <b-row align-h="center">
           <b-col lg="6">
             <label for="username">

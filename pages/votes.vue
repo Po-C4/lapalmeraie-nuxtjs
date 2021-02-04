@@ -7,6 +7,17 @@
     />
     <b-container class="mt-4">
       <b-row align-h="center">
+        <b-col lg="11">
+          <p>
+            Les votes nous permettent d'être présents sur les sites de votes, et
+            sont l'une des façons les plus simples pour nous soutenir, et
+            d'avoir des nouveaux joueurs. Vous pouvez retrouver ici les sites de
+            votes sur lesquels La Palmeraie est présente, ainsi que les joueurs
+            ayant le plus voté. Merci à eux !
+          </p>
+        </b-col>
+      </b-row>
+      <b-row align-h="center">
         <b-col lg="5" xl="4" class="mt-3">
           <VoteSite
             name="serveur-prive.net"

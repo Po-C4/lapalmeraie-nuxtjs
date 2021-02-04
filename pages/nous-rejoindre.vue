@@ -8,7 +8,28 @@
     />
 
     <b-container class="mt-5">
-      <b-form ref="form" @submit.prevent="onSubmit">
+      <b-row align-h="center">
+        <b-col>
+          <p>
+            Pour pouvoir envoyer votre candidature, et aller sur notre serveur,
+            votre présence sur notre serveur discord est nécessaire. Vous pouvez
+            y accéder grâce à
+            <!-- eslint-disable-next-line prettier/prettier -->
+            <a href="https://lapalmeraiemc.fr/discord" target="_blank">ce lien</a>.
+          </p>
+
+          <p class="mt-3">
+            Les candidatures permettent de garantir la qualité des joueurs sur
+            le serveur et de sa communauté, ainsi que de réduire le nombre de
+            griefs. Notez que nous n'accepterons pas de joueurs en dessous de
+            <strong>17 ans</strong>. Le fait de candidater ne garantit pas votre
+            acceptation sur le serveur. Nous nous réservons le droit de révoquer
+            votre accès au serveur à tout moment, sans distinction aucune.
+          </p>
+        </b-col>
+      </b-row>
+
+      <b-form ref="form" class="mt-4" @submit.prevent="onSubmit">
         <b-row>
           <b-col lg="6">
             <label for="minecraft">
