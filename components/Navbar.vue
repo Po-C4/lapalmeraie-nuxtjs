@@ -6,8 +6,7 @@
     :variant="isOpen || scrolled ? 'primary' : 'muted'"
     class="mx-auto"
   >
-    <!-- <div v-b-visible="handleVisible" -->
-    <b-navbar-brand to="/"> La Palmeraie </b-navbar-brand>
+    <b-navbar-brand to="/">La Palmeraie</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse" />
 
@@ -28,7 +27,14 @@
           :active="$route.path === '/votes'"
           class="my-auto"
         >
-          Votez !
+          Votez
+        </b-nav-item>
+        <b-nav-item
+          href="https://lapalmeraiemc.fr/discord"
+          target="_blank"
+          class="my-auto"
+        >
+          Notre Discord
         </b-nav-item>
         <b-nav-item to="/nous-soutenir" class="nav-first-btn">
           <b-button
@@ -36,7 +42,7 @@
             :class="routeMatch('/nous-soutenir')"
             @click="delayedBlur"
           >
-            Nous Soutenir !
+            Nous Soutenir
           </b-button>
         </b-nav-item>
         <b-nav-item to="/nous-rejoindre" class="nav-btn">

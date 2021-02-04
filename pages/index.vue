@@ -28,8 +28,12 @@
             vendant vos ressources à l'aide de commerçants ! Notre carte de
             50000 blocs carré vous attend !
           </p>
-          <b-button variant="primary" to="/nous-rejoindre">
-            Nous rejoindre !
+          <b-button
+            variant="secondary"
+            href="https://lapalmeraiemc.fr/discord"
+            target="_blank"
+          >
+            Notre Discord
           </b-button>
         </b-col>
       </b-row>
