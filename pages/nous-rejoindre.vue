@@ -1,7 +1,7 @@
 <template>
   <div class="bg-dark text-white">
     <AppHeader
-      background="bg-cta"
+      background="bg-join"
       title="Rejoindre la Palmeraie"
       subtitle="Avant de pouvoir rejoindre La Palmeraie, nous avons besoin de quelques informations sur vous !"
       subtitle2="Ce formulaire nous permettra d'évaluer votre candidature, et de sécuriser le serveur."

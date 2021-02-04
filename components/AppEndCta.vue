@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     getImgUrl(img) {
-      const assets = require.context('@/assets/', false, /\.png$/);
-      return assets(`./${img}.png`);
+      const assets = require.context('@/assets/', false, /\.webp$/);
+      return assets(`./${img}.webp`);
     },
   },
 };

@@ -13,7 +13,7 @@
         <b-col lg="7">
           <b-img
             fluid
-            src="@/assets/img-subtext01.png"
+            src="@/assets/img-subtext01.webp"
             alt="Le portail vers le Nether et le monde Ressources"
           />
         </b-col>
@@ -52,7 +52,7 @@
         <b-col lg="7" order="1" order-lg="2">
           <b-img
             fluid
-            src="@/assets/img-subtext02.png"
+            src="@/assets/img-subtext02.webp"
             alt="Les champs du spawn, et la cave"
           />
         </b-col>
@@ -62,7 +62,7 @@
         <b-col lg="7">
           <b-img
             fluid
-            src="@/assets/img-subtext03.png"
+            src="@/assets/img-subtext03.webp"
             alt="La ville principale du spawn"
           />
         </b-col>

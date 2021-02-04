@@ -1,7 +1,7 @@
 <template>
   <div class="bg-dark text-white">
     <AppHeader
-      background="bg-support"
+      background="bg-vote"
       title="Votez !"
       subtitle="Pour montrer votre appréciation du serveur n'hésitez pas à voter pour nous."
     />

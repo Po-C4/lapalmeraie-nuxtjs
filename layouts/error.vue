@@ -35,7 +35,7 @@ export default {
 .bg {
   height: 100vh;
   width: 100%;
-  background-image: url('~assets/bg-error.png');
+  background-image: url('~assets/bg-error.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
