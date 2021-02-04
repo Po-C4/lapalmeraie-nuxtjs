@@ -5,7 +5,7 @@ export default {
   // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-server
   server: {
     host: '0.0.0.0',
-    port: 8080,
+    port: 8081,
     // Uncomment the next line to use a socket (useful with Nginx or other reverse proxies)
     // socket: '/tmp/nuxt.socket',
   },
