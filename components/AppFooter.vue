@@ -39,7 +39,7 @@
             </p>
             <p class="mb-2">
               <a
-                href="https://serveur-prive.net/minecraft/la-palmeraie-serveur-semi-rp-1-16-3-6639/vote"
+                href="https://serveur-prive.net/minecraft/la-palmeraie-serveur-semi-rp-1-16-4-6639/vote"
                 class="inline-link"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -49,7 +49,7 @@
             </p>
             <p class="mb-2">
               <a
-                href="https://top-serveurs.net/minecraft/la-palmeraie-serveur-semi-rp-1163"
+                href="https://top-serveurs.net/minecraft/vote/la-palmeraie"
                 class="inline-link"
                 target="_blank"
                 rel="noopener noreferrer"

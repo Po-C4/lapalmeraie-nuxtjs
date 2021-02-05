@@ -152,7 +152,7 @@ const acceptResume = (message, embed, judge) => {
             'connecter sur le serveur en utilisant cette adresse IP :',
             "`play.lapalmeraiemc.fr`\nNous te conseillons aussi d'aller voir",
             'notre tutoriel sur nos ajouts à cette adresse :',
-            'http://tuto.lapalmeraiemc.fr',
+            'https://lapalmeraiemc.fr/tutoriel',
           ].join(' ')
         );
 
