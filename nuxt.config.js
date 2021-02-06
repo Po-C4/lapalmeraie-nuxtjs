@@ -65,10 +65,6 @@ export default {
     proxy: true,
   },
 
-  proxy: {
-    '/api/': { target: 'http://localhost:8080', changeOrigin: true },
-  },
-
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
 

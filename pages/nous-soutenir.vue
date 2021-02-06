@@ -83,6 +83,8 @@
               :anonymous="anonymous"
               :amount="amount.toString()"
               @click="validation"
+              @error="error"
+              @success="success"
             />
           </b-col>
         </b-row>
@@ -115,6 +117,38 @@
           </b-button>
           <b-button variant="success" @click="ok()">Continuer</b-button>
         </div>
+      </template>
+    </b-modal>
+
+    <b-modal
+      ref="errorModal"
+      title="Une erreur s'est produite"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      hide-footer
+      centered
+    >
+      <template #default>
+        Une erreur s'est produite lors de la confirmation de votre paiement.
+        Veuillez vous assurer de la validité de vos informations de paiement
+        avant de réessayer.
+      </template>
+    </b-modal>
+
+    <b-modal
+      ref="successModal"
+      title="Succès"
+      header-bg-variant="success"
+      header-text-variant="light"
+      hide-footer
+      centered
+    >
+      <template v-if="anonymous" #default>
+        Votre paiement a été effectué avec succès.
+      </template>
+      <template v-else #default>
+        Votre paiement a été effectué avec succès. Si votre donation était
+        supérieure à 10€, votre grade donateur vous sera donné sous peu.
       </template>
     </b-modal>
   </div>
@@ -168,6 +202,12 @@ export default {
       } else {
         resolve();
       }
+    },
+    error() {
+      this.$refs.errorModal.show();
+    },
+    success() {
+      this.$refs.successModal.show();
     },
   },
 };

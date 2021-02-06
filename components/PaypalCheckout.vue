@@ -75,9 +75,7 @@ export default {
             return this.$axios
               .post(`/api/capture-order/${data.orderID}`)
               .then((res) => {
-                if (res.data.status !== 'success') {
-                  alert('Something went wrong');
-                }
+                this.$emit(res.data.status === 'success' ? 'success' : 'error');
               });
           },
         })
