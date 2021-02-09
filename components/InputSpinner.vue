@@ -19,7 +19,8 @@
       :value="stringValue"
       :formatter="formatter"
       @input="inputValue"
-      @blur="decimalFormatter"
+      @focus="removeSymbol"
+      @blur="decimalFormatter(true)"
     />
     <b-button
       variant="success"
@@ -131,7 +132,7 @@ export default {
       const value = this.integerOnly
         ? this.numericValue
         : this.numericValue.toFixed(2);
-      if (apply) this.stringValue = value;
+      if (apply) this.stringValue = `${value} €`;
       return value;
     },
     inputValue() {
@@ -169,6 +170,9 @@ export default {
       this.longPressDelayTimer = null;
       this.longPressTimer = null;
       this.longPressIterations = 0;
+    },
+    removeSymbol() {
+      this.stringValue = this.stringValue.replace(/^(.*) €$/, '$1');
     },
   },
 };
