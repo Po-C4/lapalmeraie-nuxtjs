@@ -12,6 +12,12 @@ exports.development = {
     member: '808959329696219147',
     contributor: '808959837915971587',
   },
+
+  tables: {
+    contributions: 'test__contributions',
+    votes: 'test__votes',
+    players: 'test__players',
+  },
 };
 
 exports.production = {
@@ -27,6 +33,12 @@ exports.production = {
     newcomer: '748803745583857764',
     member: '694638894909620325',
     contributor: '765982900994310164',
+  },
+
+  tables: {
+    contributions: 'contributions',
+    votes: 'votes',
+    players: 'players',
   },
 };
 

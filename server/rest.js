@@ -245,44 +245,35 @@ app.post('/create-order', (req, res) => {
 app.post('/capture-order/:id', (req, res) => {
   getPaypalAccessToken()
     .then(async (accessToken) => {
-      await axios.post(
-        `${paypalEndpoint}/v2/checkout/orders/${req.params.id}/capture`,
-        {},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      const item = (
-        await axios.get(
-          `${paypalEndpoint}/v2/checkout/orders/${req.params.id}`,
+      const order = (
+        await axios.post(
+          `${paypalEndpoint}/v2/checkout/orders/${req.params.id}/capture`,
+          {},
           {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
+              Prefer: 'return=representation',
             },
           }
         )
-      ).data.purchase_units[0].items[0];
+      ).data;
+
+      const transactionId = order.purchase_units[0].payments.captures[0].id;
+      const item = order.purchase_units[0].items[0];
+      const amount = item.unit_amount.value;
 
       const username = item.description.replace(minecraftWhitespaceRegex, '$1');
+      let contributor = false;
 
       if (item.description === 'Anonyme  ') {
-        db.logAnonymousContribution(item.unit_amount.value);
+        db.logAnonymousContribution(amount, transactionId);
       } else {
-        db.logContribution(username, item.unit_amount.value);
-      }
-
-      let contributor = false;
-      if (
-        parseFloat(item.unit_amount.value) >= 10 &&
-        item.description.slice(-1) !== ' '
-      ) {
         const uuid = await cache.fetchUuid(username);
-        contributor = await contributorAdd(uuid);
+        db.logContribution(uuid, amount, transactionId);
+        if (parseFloat(amount) >= 10) {
+          contributor = await contributorAdd(uuid);
+        }
       }
 
       res.json({

@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const cache = require('./cache.js');
+const db = require('./db.js');
 const configFile = require('./config.js');
 
 const cosmetics = configFile.cosmetics;
@@ -184,4 +185,6 @@ const acceptResume = async (message, embed, judge) => {
 
   message.edit(embed);
   message.reactions.removeAll();
+
+  db.updatePlayer(await cache.fetchUuid(username), username, userId);
 };

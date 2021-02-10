@@ -5,12 +5,17 @@ const db = require('./db.js');
 exports.cache = new NodeCache({ stdTTL: 1800 });
 const endpoint = 'https://api.mojang.com/users/profiles/minecraft/';
 
+const uuidRegex = /^([a-zA-Z0-9]{8})-?([a-zA-Z0-9]{4})-?([a-zA-Z0-9]{4})-?([a-zA-Z0-9]{4})-?([a-zA-Z0-9]{12})$/;
+
 exports.fetchUuid = async (username) => {
   username = username.toLowerCase();
   let uuid = this.cache.get(username);
   if (typeof uuid === 'undefined') {
     uuid = (await axios.get(`${endpoint}${username}`)).data.id;
-    if (typeof uuid !== 'undefined') this.cache.set(username, uuid);
+    if (typeof uuid !== 'undefined') {
+      uuid = uuid.replace(uuidRegex, '$1-$2-$3-$4-$5');
+      this.cache.set(username, uuid);
+    }
   } else {
     this.cache.ttl(username);
   }
