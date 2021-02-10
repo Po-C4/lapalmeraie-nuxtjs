@@ -23,9 +23,9 @@ const amountRegex = /^[0-9]+(?:.[0-9]{1,2})?$/;
 const uuidRegex = /^([0-9a-fA-F]{8})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{4})-?([0-9a-fA-F]{12})$/;
 
 const paypalEndpoint =
-  process.env.PAYPAL_MODE === 'SANDBOX'
-    ? 'https://api-m.sandbox.paypal.com'
-    : 'https://api-m.paypal.com';
+  process.env.NODE_ENV === 'production'
+    ? 'https://api-m.paypal.com'
+    : 'https://api-m.sandbox.paypal.com';
 
 const getPaypalAccessToken = () => {
   return new Promise((resolve, reject) => {
