@@ -273,6 +273,7 @@ app.post('/capture-order/:id', (req, res) => {
         db.logContribution(uuid, amount, transactionId);
         if (parseFloat(amount) >= 10) {
           contributor = await contributorAdd(uuid);
+          discordBot.addContributor(uuid);
         }
       }
 

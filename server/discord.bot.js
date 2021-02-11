@@ -188,3 +188,10 @@ const acceptResume = async (message, embed, judge) => {
 
   db.updatePlayer(await cache.fetchUuid(username), username, userId);
 };
+
+exports.addContributor = async (uuid) => {
+  const player = await db.getPlayer(uuid);
+  if (player === undefined) return;
+  const user = guild.members.cache.get(player.discordId);
+  user.roles.add(config.roles.contributor);
+};

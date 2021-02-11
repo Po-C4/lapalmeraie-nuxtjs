@@ -128,3 +128,19 @@ exports.updatePlayer = (uuid, username, discordId) => {
     [config.tables.players, uuid, username, discordId, discordId]
   );
 };
+
+exports.getPlayer = (uuid) => {
+  if (!uuidRegex.test(uuid)) throw new Error('Invalid UUID');
+
+  return new Promise((resolve, reject) => {
+    pool.query(
+      'SELECT * FROM ?? WHERE `uuid` = ?',
+      [config.tables.players, uuid],
+      (err, res, fields) => {
+        if (err) reject(err);
+        res = res.map((v) => Object.assign({}, v));
+        resolve(res[0]);
+      }
+    );
+  });
+};
