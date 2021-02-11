@@ -121,6 +121,8 @@ export default {
         )
         .replace(',', '.');
 
+      if (value === '') return;
+
       const parsedValue = this.parse(value);
       const clampedValue = this.clamp(parsedValue);
       return parsedValue === clampedValue ? value : clampedValue;
