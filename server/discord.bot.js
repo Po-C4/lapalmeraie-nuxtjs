@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+const axios = require('axios');
 const Discord = require('discord.js');
 const cache = require('./cache.js');
 const db = require('./db.js');
@@ -44,7 +46,7 @@ exports.sendUserResume = async ({
   resume,
 }) => {
   const embed = new Discord.MessageEmbed()
-    .setTitle(sanitize(minecraft))
+    .setTitle(sanitize(await cache.fetchCapitalizedUsername(minecraft)))
     .setColor(cosmetics.colors.waiting)
     .setThumbnail(await cache.getHeadUrl(minecraft))
     .setTimestamp()
@@ -146,6 +148,15 @@ const denyResume = (message, embed, judge) => {
   message.reactions.removeAll();
 };
 
+const generateSignature = (method, route) => {
+  const signature = crypto
+    .createHmac('SHA256', process.env.BUNGEE_SECRET)
+    .update(`${method.toUpperCase()}${route}`)
+    .digest('hex');
+  console.log(signature);
+  return signature;
+};
+
 const acceptResume = async (message, embed, judge) => {
   const userId = embed.fields
     .find((field) => field.name === cosmetics.fields.discord)
@@ -186,7 +197,18 @@ const acceptResume = async (message, embed, judge) => {
   message.edit(embed);
   message.reactions.removeAll();
 
-  db.updatePlayer(await cache.fetchUuid(username), username, userId);
+  const uuid = await cache.fetchUuid(username);
+
+  db.updatePlayer(uuid, username, userId);
+  axios.post(
+    `https://lapalmeraiemc.fr/api/v1/whitelist/${uuid}`,
+    {},
+    {
+      headers: {
+        'X-Signature': generateSignature('post', `/api/v1/whitelist/${uuid}`),
+      },
+    }
+  );
 };
 
 exports.addContributor = async (uuid) => {

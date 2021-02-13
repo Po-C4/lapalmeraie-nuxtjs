@@ -9,17 +9,42 @@ const uuidRegex = /^([a-zA-Z0-9]{8})-?([a-zA-Z0-9]{4})-?([a-zA-Z0-9]{4})-?([a-zA
 
 exports.fetchUuid = async (username) => {
   username = username.toLowerCase();
-  let uuid = this.cache.get(username);
+  let uuid = this.cache.get(username)?.uuid;
   if (typeof uuid === 'undefined') {
-    uuid = (await axios.get(`${endpoint}${username}`)).data.id;
-    if (typeof uuid !== 'undefined') {
+    const res = (await axios.get(`${endpoint}${username}`)).data;
+    uuid = res.id;
+    const capitalizedUsername = res.name;
+    if (
+      typeof uuid !== 'undefined' &&
+      typeof capitalizedUsername !== 'undefined'
+    ) {
       uuid = uuid.replace(uuidRegex, '$1-$2-$3-$4-$5');
-      this.cache.set(username, uuid);
+      this.cache.set(username, { uuid, username: capitalizedUsername });
     }
   } else {
     this.cache.ttl(username);
   }
   return uuid;
+};
+
+exports.fetchCapitalizedUsername = async (username) => {
+  username = username.toLowerCase();
+  let capitalizedUsername = this.cache.get(username)?.username;
+  if (typeof uuid === 'undefined') {
+    const res = (await axios.get(`${endpoint}${username}`)).data;
+    let uuid = res.id;
+    capitalizedUsername = res.name;
+    if (
+      typeof uuid !== 'undefined' &&
+      typeof capitalizedUsername !== 'undefined'
+    ) {
+      uuid = uuid.replace(uuidRegex, '$1-$2-$3-$4-$5');
+      this.cache.set(username, { uuid, username: capitalizedUsername });
+    }
+  } else {
+    this.cache.ttl(username);
+  }
+  return capitalizedUsername;
 };
 
 exports.playerExists = async (username) => {

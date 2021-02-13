@@ -31,7 +31,7 @@ exports.production = {
 
   roles: {
     newcomer: '748803745583857764',
-    member: '694638894909620325',
+    member: '809800268895485952',
     contributor: '765982900994310164',
   },
 
